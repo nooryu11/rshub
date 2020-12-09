@@ -1,4 +1,5 @@
-name: automated_tests
+
+name: automated_tests_orders
 # when to run - when pull request is made
 on:
   pull_request 
@@ -8,9 +9,5 @@ jobs:
   build: #start a VM
     runs-on: ubuntu-latest #use this vm
     steps: #take code
-      - uses: actions/checkout@v2
-      - run:  cd auth && npm install && npm run test:ci #action
-  
-  
-  
-  
+      - uses: actions/@checkoutv2
+      - run:  cd orders && npm install && npm run test:ci #action
