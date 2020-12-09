@@ -1,4 +1,4 @@
-name: automated_tests
+name: automated_tests_auth
 # when to run - when pull request is made
 on:
   pull_request 
