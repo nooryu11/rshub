@@ -1,0 +1,16 @@
+name: automated_tests
+# when to run - when pull request is made
+on:
+  pull_request 
+
+# job section defined what to do when pull reques is made
+jobs: 
+  build: #start a VM
+    runs-on: ubuntu-latest #use this vm
+    steps: #take code
+      - uses: actions/@checkoutv2
+      - run:  cd auth && npm install && npm run test:ci #action
+  
+  
+  
+  
