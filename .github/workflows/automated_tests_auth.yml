@@ -1,7 +1,9 @@
 name: automated_tests_auth
 # when to run - when pull request is made
 on:
-  pull_request 
+  pull_request:
+    paths:
+      - "auth/**" 
 
 # job section defined what to do when pull reques is made
 jobs: 
