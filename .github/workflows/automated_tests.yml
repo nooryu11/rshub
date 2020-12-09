@@ -8,7 +8,7 @@ jobs:
   build: #start a VM
     runs-on: ubuntu-latest #use this vm
     steps: #take code
-      - uses: actions/@checkoutv2
+      - uses: actions/checkout@v2
       - run:  cd auth && npm install && npm run test:ci #action
   
   
