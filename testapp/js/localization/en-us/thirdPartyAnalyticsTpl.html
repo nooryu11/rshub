@@ -1,0 +1,22 @@
+<script>
+    ga('require', 'ecommerce');
+
+    ga('ecommerce:addTransaction', {
+     'id': '{{appData.WebFolioId}}',                   
+     'affiliation': '{{escapeJSString storeName}}',  
+     'revenue': '{{toFixed balance 2}}',
+    });
+
+    {{#cartData}}
+    ga('ecommerce:addItem', {
+     'id': '{{../appData.WebFolioId}}',
+     'sku': '{{escapeJSString sku}}',
+     'name': '{{escapeJSString name}}',
+     'category': '{{escapeJSString cat}}',
+     'price': '{{#equal Category "Hotel"}}{{toFixed adr 2}}{{else}}{{toFixed price 2}}{{/equal}}',
+     'quantity':'{{#equal Category "Hotel"}}{{nights}}{{else}}{{qty}}{{/equal}}'
+    });
+    {{/cartData}}
+
+    ga('ecommerce:send');
+</script>
