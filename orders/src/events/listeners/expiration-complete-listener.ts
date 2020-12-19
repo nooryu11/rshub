@@ -27,11 +27,11 @@ export class ExpirationCompleteListener extends Listener<
     });
     await order.save();
     await new OrderCancelledPublisher(this.client).publish({
-      id: order.id,
+      id: order.id!,
       version: order.version,
       status: order.status,
       ticket: {
-        id: order.ticket.id,
+        id: order.ticket.id!,
       },
     });
 

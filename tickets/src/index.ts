@@ -5,7 +5,7 @@ import {OrderCancelledListener} from './events/listeners/order-cancelled-listene
 import {OrderCreatedListener} from './events/listeners/order-created-listener'
 const start = async () => {
   if(!process.env.JWT_KEY){
-    throw new Error("JWT_KEY is missing")
+    throw new Error("JWT_KEY is missing.")
   }
   if(!process.env.MONGO_URI){
     throw new Error("MONGO_URI is missing")
@@ -33,17 +33,18 @@ const start = async () => {
     process.on('SIGTERM',()=> natsWrapper.client.close())
 
     await new OrderCancelledListener(natsWrapper.client).listen()
-    await new OrderCreatedListener(natsWrapper.client).listen()
+   await new OrderCreatedListener(natsWrapper.client).listen()
     
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true
-    })
-    console.log("connected to mongodb")
+
+    console.log("connected to mongodb..")
   } catch (error) {
     console.log(error)
   }
+  // await mongoose.connect(process.env.MONGO_URI, {
+  //   useNewUrlParser: true,
+  //   useUnifiedTopology: true,
+  //   useCreateIndex: true
+  // })
   app.listen(3000, () => {
     console.log('Listening on port 3000; ticketing service');
   });

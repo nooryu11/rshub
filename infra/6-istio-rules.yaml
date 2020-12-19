@@ -1,0 +1,141 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: ingress-gateway-configuration
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+
+# # apiVersion: networking.istio.io/v1alpha3
+# # kind: VirtualService
+# # metadata:
+# #   name: graphqlengine
+# # spec:
+# #   hosts:
+# #   - "*"
+# #   gateways:
+# #   - ingress-gateway-configuration
+# #   http:
+# #   - match:
+# #     - uri:
+# #         prefix: "/graphql"
+# #     route:
+# #     - destination:
+# #         host: graphqlengine
+# ---
+# apiVersion: networking.istio.io/v1alpha3
+# kind: VirtualService
+# metadata:
+#   name: pmsservice
+# spec:
+#   hosts:
+#   - "*"
+#   gateways:
+#   - ingress-gateway-configuration
+#   http:
+#   - match:
+#     - uri:
+#         prefix: "/app/pmsMicroService"
+#     route:
+#     - destination:
+#         host: pmsservice
+# ---
+# ---
+# apiVersion: networking.istio.io/v1alpha3
+# kind: VirtualService
+# metadata:
+#   name: orders-srv
+# spec:
+#   hosts:
+#   - "*"
+#   gateways:
+#   - ingress-gateway-configuration
+#   http:
+#   - match:
+#     - uri:
+#         prefix: "/api/orders/?(.*)"
+#     route:
+#     - destination:
+#         host: orders-srv
+# ---
+# ---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: tickets-srv
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - ingress-gateway-configuration
+  http:
+  - match:
+    - uri:
+        prefix: "/api/tickets"
+    route:
+    - destination:
+        host: tickets-srv
+
+---
+
+# apiVersion: networking.istio.io/v1alpha3
+# kind: VirtualService
+# metadata:
+#   name: payments-srv
+# spec:
+#   hosts:
+#   - "*"
+#   gateways:
+#   - ingress-gateway-configuration
+#   http:
+#   - match:
+#     - uri:
+#         prefix: "/api/payments/?(.*)"
+#     route:
+#     - destination:
+#         host: payments-srv
+# ---
+# ---
+# apiVersion: networking.istio.io/v1alpha3
+# kind: VirtualService
+# metadata:
+#   name: auth-srv
+# spec:
+#   hosts:
+#   - "*"
+#   gateways:
+#   - ingress-gateway-configuration
+#   http:
+#   - match:
+#     - uri:
+#         prefix: "/api/users/?(.*)"
+#     route:
+#     - destination:
+#         host: auth-srv
+# ---
+# apiVersion: networking.istio.io/v1alpha3
+# kind: VirtualService
+# metadata:
+#   name: client-srv
+# spec:
+#   hosts:
+#   - "*"
+#   gateways:
+#   - ingress-gateway-configuration
+#   http:
+#   - match:
+#     - uri:
+#         prefix: "/?(.*)"
+#     route:
+#     - destination:
+#         host: client-srv
+#         port: 3000
+# ---

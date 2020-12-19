@@ -47,11 +47,11 @@ router.post(
    })
    const payment =  new Payment({
      stripeId: charge.id,
-     orderId:order.id
+     orderId:order.id!
    })
    await payment.save()
    await new PaymentCreatedPublisher(natsWrapper.client).publish({
-     id:payment.id,
+     id:payment.id!,
      stripeId: payment.stripeId,
      orderId: payment.orderId
    })
