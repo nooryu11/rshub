@@ -1,6 +1,10 @@
 import Link from 'next/link';
 const LandingPage = ({currentUser,tickets}) =>{
     console.log(tickets)
+    var socket = require('socket.io-client')('http://localhost:3002');
+    socket.on('announcements', function(data){
+        console.log("550",data)
+    });
     const ticketList = tickets.map(ticket =>{
         return (
             <tr key={ticket.id}>
