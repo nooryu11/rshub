@@ -2,7 +2,7 @@ import {useState,useEffect} from 'react'
 import useRequest from '../../hooks/use-request'
 import Router from 'next/router'
 import StripeCheckout from 'react-stripe-checkout'
-const OrderShow = ({order,currentUser})=>{
+const orderShow = ({order,currentUser})=>{
     const {doRequest,errors} = useRequest() 
     const [expire,setExpire] = useState('')
    
@@ -43,10 +43,10 @@ const OrderShow = ({order,currentUser})=>{
          </div>
         )
 }
-OrderShow.getInitialProps = async (context,client,currentUser)=>{
+orderShow.getInitialProps = async (context,client,currentUser)=>{
     const {orderId} = context.query // ticekt id in the link
-    const {data} = await client.get(`/api/Orders/${orderId}`)
+    const {data} = await client.get(`/api/orders/${orderId}`)
     console.log(data)
    return {order:data}
 }
-export default OrderShow
+export default orderShow

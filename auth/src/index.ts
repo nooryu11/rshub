@@ -1,7 +1,5 @@
 import {app} from './app'
 import mongoose from 'mongoose'
-import {odbcConnection} from './db-config'
-
 const start = async () => {
   console.log("starting the Auth microservice")
   if(!process.env.JWT_KEY){
@@ -16,13 +14,12 @@ const start = async () => {
       useUnifiedTopology: true,
       useCreateIndex: true
     })
-   console.log("444",odbcConnection)
     console.log("connected to mongodb")
   } catch (error) {
     console.log(error)
   }
   app.listen(3000, () => {
-    console.log('Listening on port 3000!!!!!!! for auth service');
+    console.log('Listening on port 3000!!!!!!!! for auth service');
   });
 }
 start();

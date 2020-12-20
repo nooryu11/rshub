@@ -2,8 +2,7 @@ import express from 'express';
 import 'express-async-errors'
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
-import expressGraphQL from 'express-graphql'
-// import schema from './graphql';
+
 import {currentUserRouter} from './routes/current-user';
 import {signinRouter} from './routes/signin';
 import {signupRouter} from './routes/signup';
@@ -16,17 +15,13 @@ app.set('trust proxy',true)//express see proxied, by default express gona say I 
 app.use(json());
 app.use(cookieSession({
     signed:false,//jwt is already encrypted,no need to make cookie encrypted
-    secure:process.env.NODE_ENV !== "test" //cookies will only be used if user is visiting out app over https.// jest supertest doesnt make https call
+    secure:false//cookies will only be used if user is visiting out app over https.// jest supertest doesnt make https call
 }))
 
 app.use(currentUserRouter)
 app.use(signinRouter)
 app.use(signupRouter)
 app.use(signoutRouter)
-// app.use('/graphql', expressGraphQL({
-//   schema,
-//   graphiql: true
-// }))
 
 app.all('*',async(req,res)=>{
   throw new NotFoundError()

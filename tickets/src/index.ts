@@ -5,7 +5,7 @@ import {OrderCancelledListener} from './events/listeners/order-cancelled-listene
 import {OrderCreatedListener} from './events/listeners/order-created-listener'
 const start = async () => {
   if(!process.env.JWT_KEY){
-    throw new Error("JWT_KEY is missing.")
+    throw new Error("JWT_KEY is missing")
   }
   if(!process.env.MONGO_URI){
     throw new Error("MONGO_URI is missing")
@@ -19,6 +19,8 @@ const start = async () => {
   if (!process.env.NATS_CLUSTER_ID) {
     throw new Error('NATS_CLUSTER_ID must be defined');
   }
+  console.log(  process.env.NATS_CLUSTER_ID,process.env.NATS_CLIENT_ID,
+    process.env.NATS_URL)
   try {
       await natsWrapper.connect(
         process.env.NATS_CLUSTER_ID,
@@ -33,18 +35,19 @@ const start = async () => {
     process.on('SIGTERM',()=> natsWrapper.client.close())
 
     await new OrderCancelledListener(natsWrapper.client).listen()
-   await new OrderCreatedListener(natsWrapper.client).listen()
+    await new OrderCreatedListener(natsWrapper.client).listen()
     
-
-    console.log("connected to mongodb..")
+  
+   
   } catch (error) {
     console.log(error)
   }
-  // await mongoose.connect(process.env.MONGO_URI, {
-  //   useNewUrlParser: true,
-  //   useUnifiedTopology: true,
-  //   useCreateIndex: true
-  // })
+  await mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+  })
+  console.log("connected to mongodb....")
   app.listen(3000, () => {
     console.log('Listening on port 3000; ticketing service');
   });

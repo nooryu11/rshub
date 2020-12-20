@@ -17,7 +17,6 @@ app.use(cookieSession({
     signed:false,//jwt is already encrypted,no need to make cookie encrypted
     secure:process.env.NODE_ENV !== "test" //cookies will only be used if user is visiting out app over https.// jest supertest doesnt make https call
 }))
-console.log("hello")
 app.use(currentUser)
 app.use(createTicketRouter)
 app.use(showTicketRouter)
