@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graphqlproxy-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: graphqlproxy
+  template:
+    metadata:
+      labels:
+        app: graphqlproxy
+        tier: backend
+        version: v1
+    spec:
+      containers:
+      - image: 676894/graphqlproxy
+        name: server
+        ports:
+        - containerPort: 4000
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: USER_MICROSERVICE_URI
+            value: customer-srv:3000
+          - name: JWT_KEY
+            valueFrom:
+              secretKeyRef:
+                name: jwt-secret
+                key: JWT_KEY
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: graphqlproxy-srv
+spec:
+  selector:
+    app: graphqlproxy
+  ports:
+  - port: 4000
+    targetPort: 4000
+    name: http
+       
+
+

@@ -1,0 +1,20 @@
+{
+  "name": "graphqproxy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "GraphqlEngine.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-link-context": "^1.0.20",
+    "apollo-link-http": "^1.5.17",
+    "apollo-server": "^2.12.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "graphql-tools": "^5.0.0",
+    "node-fetch": "^2.6.0"
+  }
+}

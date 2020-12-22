@@ -3,73 +3,100 @@ kind: Config
 deploy:
   kubectl:
     manifests:
-      - './infra/k8s/nats-depl.yaml'
-      - './infra/k8s/tickets-mongo-depl.yaml'
-      - './infra/k8s/tickets-depl.yaml'
-      - './infra/k8s/tickets-redis-depl.yaml'
-      - './infra/k8s/orders-mongo-depl.yaml'
-      - './infra/k8s/orders-depl.yaml'
-      - './infra/k8s/auth-mongo-depl.yaml'
-      - './infra/k8s/auth-depl.yaml'
-      - './infra/k8s/client-depl.yaml'
-      - './infra/k8s/payments-mongo-depl.yaml'
-      - './infra/k8s/payments-depl.yaml'
-      - './infra/k8s/expiration-depl.yaml'
-      - './infra/k8s/expiration-redis-depl.yaml'
+      # - './infra/k8s/nats-depl.yaml'
+      # - './infra/k8s/tickets-mongo-depl.yaml'
+      # - './infra/k8s/tickets-depl.yaml'
+      # - './infra/k8s/tickets-redis-depl.yaml'
+      # - './infra/k8s/orders-mongo-depl.yaml'
+      # - './infra/k8s/orders-depl.yaml'
+      # - './infra/k8s/auth-mongo-depl.yaml'
+      # - './infra/k8s/auth-depl.yaml'
+      # - './infra/k8s/client-depl.yaml'
+      # - './infra/k8s/payments-mongo-depl.yaml'
+      # - './infra/k8s/payments-depl.yaml'
+      # - './infra/k8s/expiration-depl.yaml'
+      # - './infra/k8s/expiration-redis-depl.yaml'
+      - './infra/k8s/customer-depl.yaml'
+      - './infra/k8s/spafolio-depl.yaml'
+      - './infra/k8s/graphqlproxy-depl.yaml'
       
 
 build:
   local:
     push: true
   artifacts:
-    - image: 676894/auth
-      context: auth
+    # - image: 676894/auth
+    #   context: auth
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - src: 'src/**/*.ts'
+    #         dest: . 
+    #         # //where to sync this file to inside running container. . mean throw it to corrposindg path in contaier
+    # - image: 676894/client
+    #   context: client
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - src: '**/*.js'
+    #         dest: . 
+    #         # //where to sync this file to inside running container. . mean throw it to corrposindg path in contaier
+    # - image: 676894/tickets
+    #   context: tickets
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - src: 'src/**/*.ts'
+    #         dest: . 
+    #         # //where to sync this file to inside running container. . mean throw it to corrposindg path in container
+    # - image: 676894/orders
+    #   context: orders
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - src: 'src/**/*.ts'
+    #         dest: .  
+    # - image: 676894/expiration
+    #   context: expiration
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - src: 'src/**/*.ts'
+    #         dest: .    
+    # - image: 676894/payments
+    #   context: payments
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - src: 'src/**/*.ts'
+    #         dest: .  
+    - image: 676894/customer
+      context: customer
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: 'src/**/*.ts'
-            dest: . 
-            # //where to sync this file to inside running container. . mean throw it to corrposindg path in contaier
-    - image: 676894/client
-      context: client
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: '**/*.js'
-            dest: . 
-            # //where to sync this file to inside running container. . mean throw it to corrposindg path in contaier
-    - image: 676894/tickets
-      context: tickets
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: 'src/**/*.ts'
-            dest: . 
-            # //where to sync this file to inside running container. . mean throw it to corrposindg path in container
-    - image: 676894/orders
-      context: orders
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: 'src/**/*.ts'
+          - src: 'src/**/*.js'
             dest: .  
-    - image: 676894/expiration
-      context: expiration
+    - image: 676894/graphqlproxy
+      context: graphqlproxy
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: 'src/**/*.ts'
-            dest: .    
-    - image: 676894/payments
-      context: payments
+          - src: 'src/**/*.js'
+            dest: .  
+    - image: 676894/spafolio
+      context: spa
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: 'src/**/*.ts'
+          - src: 'src/**/*.js'
             dest: .  

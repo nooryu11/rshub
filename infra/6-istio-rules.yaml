@@ -89,6 +89,59 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
+  name: customer-srv
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - ingress-gateway-configuration
+  http:
+  - match:
+    - uri:
+        prefix: "/customer"
+    route:
+    - destination:
+        host: customer-srv
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: spafolio-srv
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - ingress-gateway-configuration
+  http:
+  - match:
+    - uri:
+        prefix: "/spafolio"
+    route:
+    - destination:
+        host: spafolio-srv
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: graphqlproxy-srv
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - ingress-gateway-configuration
+  http:
+  - match:
+    - uri:
+        prefix: "/graphql"
+    route:
+    - destination:
+        host:  graphqlproxy-srv
+
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
   name: payments-srv
 spec:
   hosts:
