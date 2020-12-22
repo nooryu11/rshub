@@ -3,10 +3,6 @@ import { requireAuth } from '@rshub/common';
 import { Order } from '../models/order';
 
 var app = require('express')();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-
-server.listen(3002);
 const router = express.Router();
 
 router.get('/api/orders', requireAuth, async (req: Request, res: Response) => {

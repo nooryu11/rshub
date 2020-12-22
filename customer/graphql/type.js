@@ -3,14 +3,7 @@ exports.customerJMA = {
     Customer: {
         sqlTable: 'ALL_CUSTOMER',
         uniqueKey: 'ALL_CUSTOMER_ID',
-        // fields: {
-        //     Folio_Items: {
-        //         sqlBatch: {
-        //             thisKey: 'ALL_CUSTOMER_ID',
-        //             parentKey: 'ALL_CUSTOMER_ID'
-        //         }
-        //     }
-        // },
+
     },
 }
 

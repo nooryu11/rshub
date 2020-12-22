@@ -23,11 +23,11 @@ spec:
             - name: NATS_URL
               value: http://nats-srv:4222
             - name: 'REDIS_HOST'
-              value: 'http://tickets-redis-srv:6379'
+              value: 'redis://tickets-redis-srv.default.svc.cluster.local'
             - name: NATS_CLUSTER_ID
               value: ticketing
             - name: MONGO_URI
-              value:  mongodb://tickets-mongo-srv:27017/tickets'
+              value:  'mongodb://tickets-mongo-srv:27017/tickets'
             - name:  JWT_KEY #name property. Name of env variable that show up in our tickets container
               valueFrom:
                 secretKeyRef:
