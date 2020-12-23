@@ -16,7 +16,7 @@ const setup = async()=>{
 
    const data: TicketUpdatedEvent['data'] = {
     version: ticket.version +1,
-    id: ticket.id,
+    id: ticket.id!,
     price: 999,
     userId:'ooo',
     title: 'emiratas - fly better- fly us'
