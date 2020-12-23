@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tickets-depl
+  name: tickets-safe-version
 spec:
   replicas: 1
   selector:
@@ -11,10 +11,48 @@ spec:
     metadata:
       labels:
         app: tickets
+        version: safe
     spec:
       containers:
         - name: tickets
           image: 676894/tickets
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: http://nats-srv:4222
+            - name: 'REDIS_HOST'
+              value: 'redis://tickets-redis-srv.default.svc.cluster.local'
+            - name: NATS_CLUSTER_ID
+              value: ticketing
+            - name: MONGO_URI
+              value:  'mongodb://tickets-mongo-srv:27017/tickets'
+            - name:  JWT_KEY #name property. Name of env variable that show up in our tickets container
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tickets-risky-version
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tickets
+  template:
+    metadata:
+      labels:
+        app: tickets
+        version: risky
+    spec:
+      containers:
+        - name: tickets
+          image: 676894/tickets:risky
           env:
             - name: NATS_CLIENT_ID
               valueFrom:

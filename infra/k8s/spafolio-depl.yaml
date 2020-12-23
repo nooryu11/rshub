@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spafolio-depl
+  name: spafolio-version-one
 spec:
   replicas: 1
   selector:
@@ -15,7 +15,37 @@ spec:
         version: v1
     spec:
       containers:
-      - image: 676894/spafolio
+      - image: 676894/spafolio:v1
+        name: server
+        ports:
+        - containerPort: 3000
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: JWT_KEY
+            valueFrom:
+              secretKeyRef:
+                name: jwt-secret
+                key: JWT_KEY
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spafolio-version-two
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spafolio
+  template:
+    metadata:
+      labels:
+        app: spafolio
+        tier: backend
+        version: v2
+    spec:
+      containers:
+      - image: 676894/spafolio:v2
         name: server
         ports:
         - containerPort: 3000

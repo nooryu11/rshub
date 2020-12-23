@@ -12,7 +12,7 @@ exports.customerQueries = `
     }
 
     extend type Query {
-        customers(input: CustomersInput): [Customer]!
+        customers(NAME: String!): [Customer]!
         customer(id:String!): Customer
     }
 `;
